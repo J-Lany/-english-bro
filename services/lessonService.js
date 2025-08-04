@@ -1,21 +1,22 @@
 import { User } from '../models/user.js';
 import { getToday } from '../utils/date.js';
 
-export async function setNewWords(words, telegramId) {
+export async function saveLessonWithWords(telegramId, words, name) {
   const user = await User.findOne({ telegramId });
   const today = getToday();
 
-  let lesson = user.lessons.find((l) => l.date === today);
-  if (!lesson) {
-    lesson = { date: today, wordIds: [] };
-    user.lessons.push(lesson);
+  const lesson = {
+    date: today,
+    name,
+    wordIds: [],
+  };
+
+  for (const { en, ru, syn } of words) {
+    user.words.push({ en, ru, syn });
+    const savedWord = user.words[user.words.length - 1];
+    lesson.wordIds.push(savedWord._id);
   }
 
-  for (const { en, ru } of words) {
-    user.words.push({ en, ru });
-    const last = user.words[user.words.length - 1];
-    lesson.wordIds.push(last._id);
-  }
-
+  user.lessons.push(lesson);
   await user.save();
 }

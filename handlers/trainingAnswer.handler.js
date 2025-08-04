@@ -1,31 +1,30 @@
-import { saveTrainingResult } from '../services/trainingService.js';
-import { askNextQuestion } from '../utils/askNextQuestion.js';
+import { askNextQuestion } from './utils/askNextQuestion.js';
+import { buildAnswerFeedback } from './utils/buildAnswerFeedback.js';
+import { finishTraining } from './utils/finishTraining.js';
 
 export const handleTrainingAnswer = async (ctx) => {
-  const data = ctx.callbackQuery.data;
-  const value = data.replace('train_', '');
-
+  const index = parseInt(ctx.callbackQuery.data.replace('train_', ''), 10);
   const { training } = ctx.session;
-  const current = training.questions[training.index];
 
-  const isCorrect = value === current.correctAnswer;
+  const current = training.questions[training.index];
+  const selected = training.currentOptions?.[index];
+
+  const isCorrect = selected?.text === current.correctAnswer;
   training.correct += isCorrect ? 1 : 0;
   training.index += 1;
 
-  await ctx.answerCallbackQuery({
-    text: isCorrect
-      ? '✅ Правильно!'
-      : `❌ Неверно. Правильно: ${current.correctAnswer}`,
+  const feedback = buildAnswerFeedback({
+    isCorrect,
+    correctAnswer: current.correctAnswer,
+    explanation: current.explanation,
+    translation: current.translation,
+    examples: current.examples,
   });
 
+  await ctx.reply(feedback);
+
   if (training.index >= training.total) {
-    await saveTrainingResult(ctx.from.id, training);
-
-    ctx.session.step = null;
-
-    return ctx.reply(
-      `🏁 Тренировка завершена!\n\nПравильных ответов: ${training.correct} из ${training.total}`
-    );
+    return finishTraining(ctx, training);
   }
 
   return askNextQuestion(ctx);

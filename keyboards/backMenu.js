@@ -1,6 +1,6 @@
 import { InlineKeyboard } from 'grammy';
 
-export const mainMenuKeyboard = new InlineKeyboard()
+export const backMenu = new InlineKeyboard()
   .text('➕ Добавить слова', 'add_word')
   .row()
   .text('🧠 Потренироваться', 'train')

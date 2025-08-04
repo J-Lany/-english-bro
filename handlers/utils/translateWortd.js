@@ -1,5 +1,5 @@
-import { getTranslateFromAi } from '../services/openaiService.js';
-import { trimJson } from './trimJson.js';
+import { getTranslateFromAi } from '../../services/openaiService.js';
+import { trimJson } from '../../utils/text/trimJson.js';
 
 export async function translateWords(items) {
   const wordsFromAi = await getTranslateFromAi(items);

@@ -1,18 +1,14 @@
-export function getTrainingPrompt(words) {
-  return `
-У меня есть массив слов с переводом на английский и русский языки:
-${JSON.stringify(words, null, 2)}  
-Пожалуйста, создай 15 заданий для тренировки на основе этих слов. Должно быть:
+import { trainingPrompts, trainingTypePrompts } from './trainingPrompts.js';
 
-- 5 заданий формата "Выбери правильный контекст использования слова на английском".
-- 5 заданий формата "Выбери правильный перевод слова".
-- 5 заданий формата "Заполни пропуск", где предложения будут с пропущенным текстом, и нужно будет вставить один из вариантов.
+export function getTrainingPrompt({ level, ageGroup, trainingType }) {
+  const promptForLevel = trainingPrompts?.[level]?.[ageGroup];
+  const promptForType = trainingTypePrompts?.[trainingType];
 
-Ответ должен быть в формате JSON массива объектов, где каждый объект содержит:
+  if (!promptForLevel || !promptForType) {
+    throw new Error(
+      'Invalid level, ageGroup, or trainingType in prompt generation'
+    );
+  }
 
-- question: текст вопроса
-- correctAnswer: правильный ответ
-- incorrectAnswers: массив неправильных ответов
-- questionType: тип вопроса (например, "context", "translation", "fill_in_the_blank").
-  `;
+  return `${promptForLevel}\n\n${promptForType}`;
 }
