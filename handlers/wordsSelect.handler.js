@@ -8,9 +8,11 @@ export const handleSelectWords = async (ctx) => {
   ctx.session.selectedLessonId = lessonId;
 
   const user = await User.findOne({ telegramId: ctx.from.id });
+  if (!user) return ctx.reply('Начни с кнопкочки /start');
+
   const lesson = user.lessons.find((l) => l._id.toString() === lessonId);
 
-  if (!lesson) return ctx.reply('❌ Урок не найден.');
+  if (!lesson) return ctx.reply('Начни с добавления слов');
 
   const wordsList = getWordsListForTraining(lesson.wordIds, user.words);
 

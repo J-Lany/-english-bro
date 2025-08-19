@@ -55,6 +55,10 @@ bot.callbackQuery('menu:back', handleBack);
 bot.callbackQuery('disable_notifications', disableNotifications);
 bot.command('enable_notifications', enableNotifications);
 bot.callbackQuery(/^level_|^age_/, handleOnboarding);
+bot.callbackQuery('reminder_train', async (ctx) => {
+  ctx.session.step = null;
+  return callbackTrain(ctx);
+});
 bot.callbackQuery('train', callbackTrain);
 bot.callbackQuery('choose_lesson', handleShowLessonList);
 bot.callbackQuery(/^select_lesson_/, handleSelectLesson);

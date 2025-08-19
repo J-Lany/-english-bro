@@ -28,7 +28,7 @@ export const callbackTrain = async (ctx) => {
     pageText: '📚 Choose the list:',
   };
 
-  await sendLessonsPage(ctx, 'select_lesson', '📚 Choose the list:');
+  return sendLessonsPage(ctx, 'select_lesson', '📚 Choose the list:');
 };
 export const handleTrainCallback = async (ctx) => {
   if (ctx.session.step === 'training') {

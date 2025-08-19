@@ -7,7 +7,7 @@ export async function disableNotifications(ctx) {
   );
 
   await ctx.answerCallbackQuery();
-  await ctx.reply(
+  return ctx.reply(
     '🚫 Уведомления отключены. Вы всегда можете включить их снова в настройках.'
   );
 }

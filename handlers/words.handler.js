@@ -8,13 +8,13 @@ export async function callbackWords(ctx) {
   };
 
   try {
-    await sendLessonsPage(
+    return sendLessonsPage(
       ctx,
       'select_words_lesson',
       ctx.session.lessonsContext.pageText
     );
   } catch (err) {
     console.error('Error in words:', err);
-    await ctx.reply('❌ Ошибка при получении уроков. Попробуй позже.');
+    return ctx.reply('❌ Ошибка при получении уроков. Попробуй позже.');
   }
 }

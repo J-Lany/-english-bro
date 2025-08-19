@@ -5,5 +5,5 @@ export default async function handleBack(ctx) {
   await ctx.answerCallbackQuery?.();
 
   ctx.session = {};
-  await safeReplyText(ctx, '🔙 Окей, мы вернулись в меню:', backMenu);
+  return safeReplyText(ctx, '🔙 Окей, мы вернулись в меню:', backMenu);
 }

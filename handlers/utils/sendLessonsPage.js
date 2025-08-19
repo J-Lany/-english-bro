@@ -3,7 +3,7 @@ import { InlineKeyboard } from 'grammy';
 import { safeReplyText } from '../../utils/safe-replies.js';
 import { formatDate } from '../../utils/date.js';
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 4;
 
 export async function sendLessonsPage(ctx, command, pageText) {
   const page = ctx.session.page || 0;
@@ -17,7 +17,7 @@ export async function sendLessonsPage(ctx, command, pageText) {
   if (!command || !pageText) {
     const saved = ctx.session.lessonsContext || {};
     command = command || saved.command;
-    pageText = pageText || saved.pageText || '';
+    pageText = pageText || saved.pageText || '📚 Список уроков:';
   }
 
   const allLessons = [...user.lessons].reverse();

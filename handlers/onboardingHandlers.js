@@ -33,7 +33,7 @@ export const handleOnboarding = async (ctx) => {
 
     await ctx.answerCallbackQuery();
 
-    await ctx.replyWithVideo(REG_SUCSESS_VIDEO, {
+    return ctx.replyWithVideo(REG_SUCSESS_VIDEO, {
       caption:
         '🎉 Спасибки! Всё заполнено, можем приступать к тренировкам! 😊\n\nНачни с раздела «Добавить слова» 😉😊',
       reply_markup: mainMenuKeyboard,

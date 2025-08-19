@@ -15,9 +15,9 @@ export async function finishTraining(ctx, training) {
   }
 
   if (newAchievements.length > 0) {
-    message += '🎖 You’ve unlocked new achievements:\n';
+    message += '<b>🎖 You’ve unlocked new achievements:</b>\n';
     for (const ach of newAchievements) {
-      message += `   🏅 <b>${ach.name}</b> — ${ach.description}\n`;
+      message += `   <i>🏅 ${ach.name} — ${ach.description}</i>\n`;
     }
     message += '\n';
   }

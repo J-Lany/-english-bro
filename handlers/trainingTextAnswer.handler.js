@@ -17,16 +17,15 @@ export const handleTrainingTextAnswer = async (ctx) => {
     training.expectTextInput = false;
     training.attemptsLeft = 3;
 
-    const feedback = buildAnswerFeedback({
+    await buildAnswerFeedback({
       isCorrect,
       correctAnswer,
       explanation: current.explanation,
       translation: current.translation,
       examples: current.examples,
       trainingType: training.trainingType,
+      ctx,
     });
-
-    await ctx.reply(feedback);
 
     if (training.index >= training.total) {
       return finishTraining(ctx, training);
@@ -40,19 +39,18 @@ export const handleTrainingTextAnswer = async (ctx) => {
   if (training.attemptsLeft > 0) {
     return ctx.reply(`❌ Try again. Attempts left: ${training.attemptsLeft}`);
   } else {
-    const feedback = buildAnswerFeedback({
+    await buildAnswerFeedback({
       isCorrect: false,
       correctAnswer,
       explanation: current.explanation,
       translation: current.translation,
       examples: current.examples,
+      ctx,
     });
 
     training.index += 1;
     training.expectTextInput = false;
     training.attemptsLeft = 3;
-
-    await ctx.reply(feedback);
 
     if (training.index >= training.total) {
       return finishTraining(ctx, training);

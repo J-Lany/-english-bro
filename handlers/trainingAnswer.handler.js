@@ -13,15 +13,14 @@ export const handleTrainingAnswer = async (ctx) => {
   training.correct += isCorrect ? 1 : 0;
   training.index += 1;
 
-  const feedback = buildAnswerFeedback({
+  await buildAnswerFeedback({
     isCorrect,
     correctAnswer: current.correctAnswer,
     explanation: current.explanation,
     translation: current.translation,
     examples: current.examples,
+    ctx,
   });
-
-  await ctx.reply(feedback);
 
   if (training.index >= training.total) {
     return finishTraining(ctx, training);

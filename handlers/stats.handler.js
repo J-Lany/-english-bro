@@ -3,7 +3,7 @@ import { getUserLevelInfo } from '../utils/userStats/userStats.js';
 import { getProgressBar } from '../utils/userStats/progressBar.js';
 import { InlineKeyboard } from 'grammy';
 import { ACHIEVEMENTS } from '../utils/userStats/achivements/achievements.js';
-import { THAMB_UP_ONE_VIDEO, THAMB_UP_TWO_VIDEO } from '../utils/media.js';
+import { THAMB_UP_TWO_VIDEO } from '../utils/media.js';
 
 export async function callbackStats(ctx) {
   try {
@@ -21,10 +21,10 @@ export async function callbackStats(ctx) {
       return ctx.reply('У тебя пока нет статистики 😅');
     }
 
-    const trainingsCount = user.trainings.length;
-    const wordsCount = user.words.length;
-    const lessonsCount = user.lessons.length;
-    const passedTrainings = user.trainings.filter((t) => t.attempts > 0);
+    const trainingsCount = user.trainings?.length || 0;
+    const wordsCount = user.words?.length || 0;
+    const lessonsCount = user.lessons?.length || 0;
+    const passedTrainings = user.trainings?.filter((t) => t.attempts > 0) || [];
     const passedTrainingsCount = passedTrainings.length;
     let achievementList;
 

@@ -9,11 +9,11 @@ export async function enableNotifications(ctx) {
   }
 
   if (user.notificationsEnabled) {
-    await ctx.reply('ℹ️ Уведомления уже включены — всё в порядке! 👍');
+    return ctx.reply('ℹ️ Уведомления уже включены — всё в порядке! 👍');
   } else {
     user.notificationsEnabled = true;
     await user.save();
-    await ctx.reply(
+    return ctx.reply(
       '🔔 Уведомления снова включены! Теперь я буду напоминать тебе о тренировках.'
     );
   }

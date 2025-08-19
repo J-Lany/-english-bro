@@ -5,6 +5,7 @@ export function buildAnswerFeedback({
   translation,
   examples,
   trainingType,
+  ctx,
 }) {
   let feedback = isCorrect ? '✅ Well done!' : '❌ Oops! Incorrect';
 
@@ -29,5 +30,5 @@ export function buildAnswerFeedback({
     }
   }
 
-  return feedback;
+  return ctx.reply(feedback);
 }
