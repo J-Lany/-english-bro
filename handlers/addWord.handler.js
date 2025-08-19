@@ -1,7 +1,11 @@
 import { translateWords } from './utils/translateWortd.js';
 import { saveLessonWithWords } from '../services/lessonService.js';
+import { User } from '../models/user.js';
 
 export const callbackAddWord = async (ctx) => {
+  const user = await User.findOne({ telegramId: ctx.from.id });
+  if (!user) return ctx.reply('Начни с кнопкочки /start');
+
   ctx.session.step = 'adding_words';
   return ctx.reply(
     `✍️ Введи английские слова или выражения, разделяя их точками:\n\n` +

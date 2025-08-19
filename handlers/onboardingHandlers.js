@@ -11,7 +11,6 @@ export const handleOnboarding = async (ctx) => {
     ctx.session.onboarding = { level };
     ctx.session.step = 'onboarding_age';
 
-    await ctx.answerCallbackQuery();
     return ctx.reply('<b>Вопрос 2:</b> Сколько тебе лет? 👇', {
       parse_mode: 'HTML',
       reply_markup: new InlineKeyboard()
@@ -30,8 +29,6 @@ export const handleOnboarding = async (ctx) => {
 
     ctx.session.step = null;
     ctx.session.onboarding = null;
-
-    await ctx.answerCallbackQuery();
 
     return ctx.replyWithVideo(REG_SUCSESS_VIDEO, {
       caption:

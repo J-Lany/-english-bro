@@ -23,6 +23,7 @@ export async function finishTraining(ctx, training) {
   }
 
   ctx.session.step = null;
+  ctx.session.selectedLessonId = null;
 
   const keyboard = new InlineKeyboard()
     .text('📊 Статистика', 'stats')

@@ -19,10 +19,6 @@ export const callbackTrain = async (ctx) => {
     );
   }
 
-  if (ctx.callbackQuery) {
-    await ctx.answerCallbackQuery();
-  }
-
   ctx.session.lessonsContext = {
     command: 'select_lesson',
     pageText: '📚 Choose the list:',
@@ -35,5 +31,5 @@ export const handleTrainCallback = async (ctx) => {
     return handleTrainingAnswer(ctx);
   }
 
-  return ctx.answerCallbackQuery({ text: '⚠️ Это не часть тренировки.' });
+  return ctx.reply('⚠️ Это не часть тренировки.');
 };

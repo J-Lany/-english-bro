@@ -25,7 +25,7 @@ export const handleSelectWords = async (ctx) => {
     .text('🔙 Назад', 'words');
 
   return ctx.reply(
-    `Repeat the phrases from:\n${lesson.name} (${formatDate(lesson.date)})\n\n${wordsList}\n\n`,
+    `<b>Repeat the phrases from:</b>\n${lesson.name} (${formatDate(lesson.date)})\n\n${wordsList}\n\n`,
     { parse_mode: 'HTML', reply_markup: keyboard }
   );
 };
