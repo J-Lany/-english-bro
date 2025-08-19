@@ -144,11 +144,7 @@ bot.callbackQuery('start_training', async (ctx) => {
   return askNextQuestion(ctx);
 });
 
-bot.on('message:text', async (ctx) => {
-  await ctx.answerCallbackQuery().catch(() => {});
-
-  return handleTextMessageRouter(ctx);
-});
+bot.on('message:text', handleTextMessageRouter);
 
 bot.on('message:photo', (ctx) => {
   console.log(ctx.message.photo);
