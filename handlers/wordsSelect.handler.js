@@ -1,7 +1,7 @@
 import { User } from '../models/user.js';
 import { getWordsListForTraining } from './utils/getWordsListForTraining.js';
 import { InlineKeyboard } from 'grammy';
-import {formatDate} from "../utils/date.js";
+import { formatDate } from '../utils/date.js';
 
 export const handleSelectWords = async (ctx) => {
   const lessonId = ctx.callbackQuery.data.split('_').at(-1);

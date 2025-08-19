@@ -3,7 +3,7 @@ import { trainingTypeLabels } from './utils/trainingTypeLabels.js';
 import { User } from '../models/user.js';
 import { trainingTaskTexts } from '../utils/text/trainingTaskTexts.js';
 import { getWordsListForTraining } from './utils/getWordsListForTraining.js';
-import {formatDate} from "../utils/date.js";
+import { formatDate } from '../utils/date.js';
 
 export const handleShowLessonList = async (ctx) => {
   const user = await User.findOne({ telegramId: ctx.from.id });
@@ -84,7 +84,7 @@ export const handleSelectTrainingType = async (ctx) => {
       trainingType === 'gap_filling' ||
       trainingType === 'collocation_check'
     ) {
-      wordsList = "\n"+ getWordsListForTraining(training.wordIds, user.words);
+      wordsList = '\n' + getWordsListForTraining(training.wordIds, user.words);
     }
 
     const taskText = trainingTaskTexts[trainingType] || 'Training started';
