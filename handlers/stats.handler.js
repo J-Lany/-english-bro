@@ -45,7 +45,23 @@ export async function callbackStats(ctx) {
     message += `- Создано уроков: <b>${lessonsCount}</b>\n`;
     message += `- Создано тренировок: <b>${trainingsCount}</b>\n`;
     message += `- Пройдено тренировок: <b>${passedTrainingsCount}</b>\n`;
-    message += `🎯 Точность на этом уровне: <b>${levelInfo.accuracy}%</b>\n\n`;
+
+    if (levelInfo.level === 1) {
+      if (levelInfo.accuracy !== null) {
+        message += `🎯 Точность на этом уровне: <b>${levelInfo.accuracy}%</b>\n\n`;
+      }
+    } else {
+      if (levelInfo.trainingsInLevel === 0 && levelInfo.prevAccuracy !== null) {
+        message += `🎯 Точность на предыдущем уровне: <b>${levelInfo.prevAccuracy}%</b>\n\n`;
+      } else {
+        if (levelInfo.accuracy !== null) {
+          message += `🎯 Точность на этом уровне: <b>${levelInfo.accuracy}%</b>\n`;
+        }
+        if (levelInfo.prevAccuracy !== null) {
+          message += `📊 Точность на предыдущем уровне: <b>${levelInfo.prevAccuracy}%</b>\n\n`;
+        }
+      }
+    }
 
     message += `🎖 <b>Достижения</b>:<blockquote>${achievementList}</blockquote>\n\n`;
 

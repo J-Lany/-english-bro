@@ -38,6 +38,22 @@ export function getUserLevelInfo(user) {
   const accuracy =
     totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
 
+  let prevAccuracy = null;
+  if (level > 1) {
+    const prevStartIdx = startIdx - 4;
+    const prevTrainings = passedTrainings.slice(prevStartIdx, startIdx);
+
+    let prevCorrect = 0;
+    let prevAnswers = 0;
+    for (const t of prevTrainings) {
+      prevCorrect += t.correct || 0;
+      prevAnswers += t.total || 0;
+    }
+
+    prevAccuracy =
+      prevAnswers > 0 ? Math.round((prevCorrect / prevAnswers) * 100) : null;
+  }
+
   return {
     level,
     title,
@@ -46,5 +62,6 @@ export function getUserLevelInfo(user) {
     trainingsToNext,
     accuracy,
     levelUp,
+    prevAccuracy,
   };
 }
